@@ -4,6 +4,7 @@ import http from 'http';
 import { Server } from 'socket.io';
 
 import serverConfig from './configs/serverConfig';
+import roomHandler from './handlers/roomHandler';
 
 const { PORT } = serverConfig;
 
@@ -22,7 +23,7 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
     console.log('New User Connected');
-
+    roomHandler(socket);
     socket.on('disconnect', () => {
         console.log('User disconnected');
     });
