@@ -20,6 +20,10 @@ const roomHandler = (socket: Socket) => {
             rooms[roomId].push(peerId);
             socket.join(roomId);
 
+            socket.on('ready', () => {
+                socket.to(roomId).emit('user-joined', { peerId });
+            });
+
             //below event is for logging purpose
             socket.emit('get-users', {
                 roomId,
